@@ -14,8 +14,8 @@ CURLOPT_CAINFO := 10065
 CURLOPT_SSL_VERIFYPEER := 64 ;USE ONLY IF YOU GET ERROR #60 AND THE SSL CERT ISNT WORKING ANYMORE (SET TO 0)
 
 ;PROGRAM DECLARES
-cUrl_Location := "E:\Misc. Stuff\AutoHotkey\Lib\cUrl\libcurl-x64.dll"
-SSL_Location := "E:\Misc. Stuff\AutoHotkey\Lib\cUrl\curl-ca-bundle.crt"
+cUrl_Location := "libcurl-x64.dll"
+SSL_Location := "curl-ca-bundle.crt"
 
 ;LOAD DLL FOR PERFORMANCE
 hModule := DllCall("LoadLibrary", "Str", cUrl_Location, "Ptr")
