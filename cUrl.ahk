@@ -69,7 +69,7 @@ cUrl(URL_P, USER_AGENT)
 WriteMemoryCallback(data, size, nmemb, clientp)
 {
     realsize := size * nmemb
-    global SiteData := SiteData StrGet(data, , 'CP0')
+    global SiteData := SiteData StrGet(data, realsize , 'CP0')
     return realsize
 }
 
