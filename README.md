@@ -1,4 +1,4 @@
-# AHK-Scripts
+# AHK (AutoHotkey) Scripts
 
 ## cUrl.ahk<br>
 -Used to make web request via cURL <br>
