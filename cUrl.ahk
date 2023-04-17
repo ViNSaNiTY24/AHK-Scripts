@@ -12,6 +12,7 @@ CURLOPT_WRITEFUNCTION := 20011
 CURLOPT_USERAGENT := 10018
 CURLOPT_CAINFO := 10065
 CURLOPT_HTTPHEADER := 10023
+CURLOPT_ACCEPT_ENCODING := 10102
 CURLOPT_SSL_VERIFYPEER := 64 ;USE ONLY IF YOU GET ERROR #60 AND THE SSL CERT ISNT WORKING ANYMORE (SET TO 0)
 
 ;PROGRAM DECLARES
@@ -31,6 +32,7 @@ cUrl(URL_P, HEADERS*)
     ;BUFFER DECLARES
     URL := Buffer(StrLen(URL_P) + A_PtrSize)
     SSL := Buffer(StrLen(SSL_Location) + A_PtrSize)
+    AcceptEncoding := Buffer(2), StrPut("", AcceptEncoding, , 'CP0')
     SiteSource := Buffer(0) ;UNSED BUT NEEDED
 
     ;USED TO STORE SITE DATA
@@ -53,6 +55,7 @@ cUrl(URL_P, HEADERS*)
     DllCall(cUrl_Location "\curl_easy_setopt", 'Ptr', CurlInit, 'UInt', CURLOPT_URL, 'Ptr', URL)
     DllCall(cUrl_Location "\curl_easy_setopt", 'Ptr', CurlInit, 'UInt', CURLOPT_CAINFO, 'Ptr', SSL)
     DllCall(cUrl_Location "\curl_easy_setopt", 'Ptr', CurlInit, 'UInt', CURLOPT_HTTPHEADER, 'Ptr', HeaderList)
+    DllCall(cUrl_Location "\curl_easy_setopt", 'Ptr', CurlInit, 'UInt', CURLOPT_ACCEPT_ENCODING, 'Ptr', AcceptEncoding)
     DllCall(cUrl_Location "\curl_easy_setopt", 'Ptr', CurlInit, 'UInt', CURLOPT_WRITEFUNCTION, 'Ptr', ccWrite)
     DllCall(cUrl_Location "\curl_easy_setopt", 'Ptr', CurlInit, 'UInt', CURLOPT_WRITEDATA, 'Ptr', SiteSource)
     Res := DllCall(cUrl_Location "\curl_easy_perform", 'Ptr', CurlInit)
