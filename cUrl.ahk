@@ -32,7 +32,7 @@ cUrl(URL_P, HEADERS*)
     ;BUFFER DECLARES
     URL := Buffer(StrLen(URL_P) + A_PtrSize)
     SSL := Buffer(StrLen(SSL_Location) + A_PtrSize)
-    AcceptEncoding := Buffer(2), StrPut("", AcceptEncoding, , 'CP0')
+    AcceptEncoding := Buffer(2), StrPut("", AcceptEncoding, , 'UTF-8')
     SiteSource := Buffer(0) ;UNSED BUT NEEDED
 
     ;USED TO STORE SITE DATA
@@ -40,8 +40,8 @@ cUrl(URL_P, HEADERS*)
     ccWrite := CallbackCreate(WriteMemoryCallback, , 4)
 
     ;PUT STRINGS INTO BUFFERS
-    StrPut(URL_P, URL, , "CP0")
-    StrPut(SSL_Location, SSL, , "CP0")
+    StrPut(URL_P, URL, , "UTF-8")
+    StrPut(SSL_Location, SSL, , "UTF-8")
 
     ;HEADERS
     HeaderList := 0
@@ -75,7 +75,7 @@ cUrl(URL_P, HEADERS*)
 }
 
 AddHeaders(HeaderList, string) {
-    StrPut(string, stringA := Buffer(StrLen(string) + A_PtrSize), "CP0")
+    StrPut(string, stringA := Buffer(StrLen(string) + A_PtrSize), "UTF-8")
     return HeaderList := DllCall(cUrl_Location "\curl_slist_append", "Ptr", HeaderList, "Ptr", stringA, "Ptr")
 }
 
@@ -83,7 +83,7 @@ AddHeaders(HeaderList, string) {
 WriteMemoryCallback(data, size, nmemb, clientp)
 {
     realsize := size * nmemb
-    global SiteData := SiteData StrGet(data, realsize, 'CP0')
+    global SiteData := SiteData StrGet(data, realsize, 'UTF-8')
     return realsize
 }
 
